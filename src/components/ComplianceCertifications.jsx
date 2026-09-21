@@ -142,9 +142,8 @@ export default function ComplianceCertifications({ onBackToHome }) {
 
           {/* Service Badge & Main Heading */}
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A8CC]/10 text-[#00A8CC] text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-4 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5" />
-              [Service]
+            <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-cyan-50 text-[#00A8CC] border border-cyan-100 text-xs font-bold tracking-widest uppercase mb-4">
+              SERVICE
             </div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-[#1E2A4A] tracking-tight leading-tight">

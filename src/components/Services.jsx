@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { FileCheck, Lightbulb, Megaphone, Users2, X, CheckCircle2, ArrowRight } from 'lucide-react'
+import { FileCheck, Lightbulb, Megaphone, Users2, GraduationCap, X, CheckCircle2, ArrowRight } from 'lucide-react'
 
 export default function Services({ onNavigate = () => {} }) {
   const [selectedService, setSelectedService] = useState(null)
+  const [hoveredIndex, setHoveredIndex] = useState(null)
   const [hasEntered, setHasEntered] = useState(false)
   const sectionRef = useRef(null)
 
@@ -26,13 +27,8 @@ export default function Services({ onNavigate = () => {} }) {
   const services = [
     {
       id: 'compliance',
-      label: 'STEP 01 // AUDIT & TRUST',
+      page: 'compliance-certifications',
       icon: FileCheck,
-      desktopTop: '0px',
-      desktopLeft: '54%',
-      rotationDeg: 'rotate-[3deg]',
-      hoverRotation: 'hover:rotate-0',
-      zIndexClass: 'z-40',
       title: 'Compliance Certifications',
       description: 'Powerful combination of the expertise of certification specialists with our data analytics capabilities to guarantee seamless audits.',
       details: [
@@ -44,13 +40,8 @@ export default function Services({ onNavigate = () => {} }) {
     },
     {
       id: 'advisory',
-      label: 'STEP 02 // STRATEGY',
+      page: 'advisory-consulting',
       icon: Lightbulb,
-      desktopTop: '220px',
-      desktopLeft: '8%',
-      rotationDeg: '-rotate-[3deg]',
-      hoverRotation: 'hover:rotate-0',
-      zIndexClass: 'z-30',
       title: 'Advisory Consulting',
       description: 'Support for CXOs with strategic decision making, development of executive strategy, and rigorous execution of strategic plans.',
       details: [
@@ -62,13 +53,8 @@ export default function Services({ onNavigate = () => {} }) {
     },
     {
       id: 'demand-gen',
-      label: 'STEP 03 // ACQUISITION',
+      page: 'demand-generation',
       icon: Megaphone,
-      desktopTop: '440px',
-      desktopLeft: '48%',
-      rotationDeg: 'rotate-[2.5deg]',
-      hoverRotation: 'hover:rotate-0',
-      zIndexClass: 'z-20',
       title: 'Demand Generation',
       description: 'Revitalising existing brands and helping new brands become a dominant market name that customers and enterprises trust.',
       details: [
@@ -80,13 +66,8 @@ export default function Services({ onNavigate = () => {} }) {
     },
     {
       id: 'crm',
-      label: 'STEP 04 // RETENTION & OPS',
+      page: 'crm-implementation',
       icon: Users2,
-      desktopTop: '660px',
-      desktopLeft: '6%',
-      rotationDeg: '-rotate-[4deg]',
-      hoverRotation: 'hover:rotate-0',
-      zIndexClass: 'z-10',
       title: 'CRM Implementation',
       description: 'Specialising in providing end-to-end support for the architectural implementation and team onboarding of your CRM ecosystem.',
       details: [
@@ -94,6 +75,19 @@ export default function Services({ onNavigate = () => {} }) {
         'Data migration, pipeline structuring, and cleanup',
         'Automated workflows and sales team training',
         'Custom integration with billing, email, and analytics tools'
+      ]
+    },
+    {
+      id: 'enrollment-growth',
+      page: 'enrollment-growth-engine',
+      icon: GraduationCap,
+      title: 'Enrollment Growth Engine Support',
+      description: 'Strategic enrollment acceleration architectures, student acquisition pipelines, and retention systems to scale institutional growth.',
+      details: [
+        'Omnichannel enrollment funnel architecture & lead capture',
+        'Predictive student & member acquisition analytics',
+        'Automated admissions nurturing & qualification workflows',
+        'Retention strategy and continuous growth engine optimization'
       ]
     }
   ]
@@ -119,96 +113,114 @@ export default function Services({ onNavigate = () => {} }) {
             Our Services
           </h2>
           <p className="text-slate-500 text-sm sm:text-base mt-3">
-            Modular consulting milestones scattered across a high-impact growth staircase.
+            Modular consulting milestones structured across a high-impact growth roadmap. Click any card to explore its full page.
           </p>
         </div>
 
-        {/* Pinned Cards Descending Staircase Canvas */}
-        <div className="relative max-w-5xl mx-auto lg:h-[950px]">
+        {/* Horizontal Series Grid with Dynamic Surrounding Gap Expansion on Hover */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5 sm:gap-6 relative z-10 max-w-7xl mx-auto items-stretch">
+          {services.map((service, index) => {
+            const Icon = service.icon
+            const isHovered = hoveredIndex === index
+            const isLeft = hoveredIndex !== null && index < hoveredIndex
+            const isRight = hoveredIndex !== null && index > hoveredIndex
 
-          {/* SVG Connector Curved Dashed Path Following the Staircase Zigzag */}
-          <div className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-0">
-            <svg
-              viewBox="0 0 1000 900"
-              fill="none"
-              className={`w-full h-full transition-opacity duration-1000 ${hasEntered ? 'opacity-100 animate-path-draw' : 'opacity-0'}`}
-              preserveAspectRatio="none"
-            >
-              <path
-                d="M 720 20 C 520 80, 250 140, 270 240 C 290 340, 670 360, 660 460 C 650 560, 230 580, 250 680"
-                stroke="#CBD5E1"
-                strokeWidth="2"
-                strokeDasharray="6,6"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
+            // Calculate precise pixel displacement for smooth, guaranteed gap expansion
+            let cardTransform = 'translateX(0px) translateY(0px) scale(1)'
+            let cardOpacity = 1
+            let cardZIndex = 10
 
-          {/* Cards: Descending Staircase Zigzag with Overlapping Corners */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:block relative z-10">
-            {services.map((service, index) => {
-              const Icon = service.icon
-              return (
+            if (isHovered) {
+              cardTransform = 'translateX(0px) translateY(-16px) scale(1.12)'
+              cardOpacity = 1
+              cardZIndex = 30
+            } else if (isLeft) {
+              const dist = hoveredIndex - index
+              const shiftPx = dist === 1 ? -30 : -16
+              cardTransform = `translateX(${shiftPx}px) translateY(0px) scale(0.95)`
+              cardOpacity = 0.75
+              cardZIndex = 10
+            } else if (isRight) {
+              const dist = index - hoveredIndex
+              const shiftPx = dist === 1 ? 30 : 16
+              cardTransform = `translateX(${shiftPx}px) translateY(0px) scale(0.95)`
+              cardOpacity = 0.75
+              cardZIndex = 10
+            }
+
+            return (
+              <div
+                key={service.id}
+                style={{
+                  animationDelay: `${index * 120 + 100}ms`
+                }}
+                className={`flex ${hasEntered ? 'animate-card-enter' : 'opacity-0'}`}
+              >
+                {/* Pinned Card Box (Direct Transform & Scale on Hover + Direct Page Redirect) */}
                 <div
-                  key={service.id}
+                  onClick={() => onNavigate(service.page)}
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
                   style={{
-                    top: service.desktopTop,
-                    left: service.desktopLeft,
-                    animationDelay: `${index * 180 + 100}ms`
+                    transform: cardTransform,
+                    opacity: cardOpacity,
+                    zIndex: cardZIndex,
+                    transition: 'all 400ms cubic-bezier(0.16, 1, 0.3, 1)'
                   }}
-                  className={`lg:absolute w-full lg:w-[350px] transition-all duration-300 ease-out group ${service.zIndexClass} hover:z-50 ${hasEntered ? 'animate-card-enter' : 'opacity-0'
-                    }`}
+                  className={`bg-white rounded-2xl p-6 sm:p-7 flex flex-col justify-between w-full relative cursor-pointer group ${
+                    isHovered
+                      ? 'shadow-[0_30px_60px_rgba(0,168,204,0.25)] border-2 border-[#00A8CC] ring-4 ring-[#00A8CC]/15'
+                      : 'shadow-[0_10px_30px_rgba(0,0,0,0.05)] border border-black/[0.06]'
+                  }`}
                 >
-                  {/* Pinned Card Box */}
-                  <div
-                    className={`bg-white rounded-2xl p-6 sm:p-7 shadow-[0_12px_35px_rgba(0,0,0,0.06)] border border-black/[0.05] flex flex-col justify-between transition-all duration-300 ease-out hover:-translate-y-3 hover:rotate-0 hover:shadow-[0_25px_50px_rgba(0,168,204,0.16)] hover:border-cyan-200/80 ${service.rotationDeg}`}
-                  >
-                    {/* Top Solid Pin Element (Overlapping top edge) */}
-                    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#2A2A2A] shadow-md flex items-center justify-center z-30 pointer-events-none">
-                      {/* Inner Glossy Highlight Dot */}
-                      <span className="w-1.5 h-1.5 rounded-full bg-white/45 absolute top-0.5 left-0.5" />
-                    </div>
-
-                    <div>
-                      {/* Label / Step Slot */}
-                      <div className="flex items-center justify-between gap-2 mb-3 pt-1">
-                        <span className="text-[11px] font-mono font-bold tracking-wider text-slate-400">
-                          {service.label}
-                        </span>
-                        <div className="w-8 h-8 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center text-[#00A8CC] group-hover:bg-cyan-50 group-hover:scale-105 transition-all">
-                          <Icon className="w-4 h-4" />
-                        </div>
-                      </div>
-
-                      {/* Title Slot */}
-                      <h3 className="text-lg font-bold text-[#1A1A2E] leading-snug mb-2.5 group-hover:text-[#00A8CC] transition-colors">
-                        {service.title}
-                      </h3>
-
-                      {/* Description Slot */}
-                      <p className="text-sm text-slate-500 leading-relaxed mb-6 font-normal">
-                        {service.description}
-                      </p>
-                    </div>
-
-                    {/* Learn More Button Action */}
-                    <div className="pt-3 border-t border-slate-100 flex items-center justify-between">
-                      <button
-                        onClick={() => setSelectedService(service)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00A8CC] hover:text-[#008ba8] transition-colors focus:outline-none"
-                      >
-                        <span>Learn more</span>
-                        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
-                      </button>
-                      <span className="text-[10px] font-mono text-slate-300">0{index + 1}</span>
-                    </div>
-
+                  {/* Top Solid Pin Element (Overlapping top edge) */}
+                  <div className={`absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#2A2A2A] shadow-md flex items-center justify-center z-30 pointer-events-none transition-transform duration-300 ${isHovered ? 'scale-125' : ''}`}>
+                    {/* Inner Glossy Highlight Dot */}
+                    <span className="w-1.5 h-1.5 rounded-full bg-white/45 absolute top-0.5 left-0.5" />
                   </div>
-                </div>
-              )
-            })}
-          </div>
 
+                  <div>
+                    {/* Top Icon Slot */}
+                    <div className="flex items-center justify-between gap-2 mb-4 pt-1">
+                      <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-300 ${
+                        isHovered 
+                          ? 'bg-[#00A8CC] text-white scale-110 shadow-md shadow-[#00A8CC]/30' 
+                          : 'bg-cyan-50/80 border border-cyan-100 text-[#00A8CC]'
+                      }`}>
+                        <Icon className="w-4 h-4" />
+                      </div>
+                    </div>
+
+                    {/* Title Slot */}
+                    <h3 className={`text-lg font-bold leading-snug mb-2.5 transition-colors duration-300 ${isHovered ? 'text-[#00A8CC]' : 'text-[#1A1A2E]'}`}>
+                      {service.title}
+                    </h3>
+
+                    {/* Description Slot */}
+                    <p className="text-sm text-slate-500 leading-relaxed mb-6 font-normal">
+                      {service.description}
+                    </p>
+                  </div>
+
+                  {/* Learn More Button Action */}
+                  <div className={`pt-3 border-t flex items-center justify-between mt-auto transition-colors duration-300 ${isHovered ? 'border-cyan-100' : 'border-slate-100'}`}>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onNavigate(service.page)
+                      }}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#00A8CC] hover:text-[#008ba8] transition-colors focus:outline-none"
+                    >
+                      <span>Explore Page</span>
+                      <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} />
+                    </button>
+                    <span className={`text-[10px] font-mono transition-colors duration-300 ${isHovered ? 'text-[#00A8CC]/60 font-semibold' : 'text-slate-300'}`}>0{index + 1}</span>
+                  </div>
+
+                </div>
+              </div>
+            )
+          })}
         </div>
 
       </div>
@@ -231,7 +243,6 @@ export default function Services({ onNavigate = () => {} }) {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-[#1A1A2E]">{selectedService.title}</h3>
-                <span className="text-xs text-[#00A8CC] font-bold font-mono">{selectedService.label}</span>
               </div>
             </div>
 

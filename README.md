@@ -2,7 +2,7 @@
 
 A modern, responsive web application replica and digital experience for **The Mavericks Consulting**, built with React 18, Vite, and Tailwind CSS.
 
-![The Mavericks Consulting](public/maverick-hero.png)
+![The Mavericks Consulting](public/maverick-hero.webp)
 
 ---
 
@@ -68,7 +68,7 @@ The optimized bundle will be generated in the `dist/` directory.
 ```
 ├── public/
 │   ├── logo.png
-│   └── maverick-hero.png
+│   ├── maverick-hero.webp
 ├── src/
 │   ├── components/
 │   │   ├── ComplianceCertifications.jsx # Dedicated certifications page

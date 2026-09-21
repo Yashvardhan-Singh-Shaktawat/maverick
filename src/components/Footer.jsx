@@ -26,9 +26,7 @@ export default function Footer({ onNavigate = () => {} }) {
 
   const handleLink = (e, page, anchor = '') => {
     e.preventDefault()
-    if (page === 'compliance-certifications') {
-      onNavigate('compliance-certifications')
-    } else {
+    if (page === 'home') {
       onNavigate('home')
       if (anchor) {
         setTimeout(() => {
@@ -36,6 +34,8 @@ export default function Footer({ onNavigate = () => {} }) {
           if (el) el.scrollIntoView({ behavior: 'smooth' })
         }, 100)
       }
+    } else {
+      onNavigate(page)
     }
   }
 
@@ -101,7 +101,7 @@ export default function Footer({ onNavigate = () => {} }) {
             <ul className="space-y-2 text-sm text-white/90">
               <li>
                 <button 
-                  onClick={(e) => handleLink(e, 'home', '#who-we-are')} 
+                  onClick={(e) => handleLink(e, 'about-us')} 
                   className="hover:text-white hover:underline transition-all text-left"
                 >
                   About us
@@ -113,6 +113,14 @@ export default function Footer({ onNavigate = () => {} }) {
                   className="hover:text-white hover:underline transition-all text-left font-semibold text-white"
                 >
                   Certifications
+                </button>
+              </li>
+              <li>
+                <button 
+                  onClick={(e) => handleLink(e, 'enrollment-growth-engine')} 
+                  className="hover:text-white hover:underline transition-all text-left"
+                >
+                  Enrollment Growth
                 </button>
               </li>
               <li>

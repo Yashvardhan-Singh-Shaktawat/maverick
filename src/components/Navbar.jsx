@@ -20,8 +20,8 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
     setServicesDropdown(false)
     setResourcesDropdown(false)
 
-    if (page === 'compliance-certifications') {
-      onNavigate('compliance-certifications')
+    if (['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine', 'about-us'].includes(page)) {
+      onNavigate(page)
     } else {
       onNavigate('home')
       if (anchor) {
@@ -101,11 +101,15 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
             {/* Item 2: About Us */}
             <div className="animate-nav-item" style={{ animationDelay: '0.18s' }}>
               <button 
-                onClick={() => handleNavClick('home', '#who-we-are')}
-                className="relative py-2 hover:text-[#00A8CC] transition-colors duration-200 group font-medium"
+                onClick={() => handleNavClick('about-us')}
+                className={`relative py-2 transition-colors duration-200 group font-medium ${
+                  currentPage === 'about-us' ? 'text-[#00A8CC] font-bold' : 'hover:text-[#00A8CC]'
+                }`}
               >
                 <span>About Us</span>
-                <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#00A8CC] rounded-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#00A8CC] rounded-full transition-transform duration-300 origin-left ${
+                  currentPage === 'about-us' ? 'scale-x-100 shadow-[0_0_8px_rgba(0,168,204,0.6)]' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
               </button>
             </div>
 
@@ -118,7 +122,7 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
             >
               <button 
                 className={`relative flex items-center gap-1 hover:text-[#00A8CC] transition-colors duration-200 py-2 focus:outline-none group ${
-                  currentPage === 'compliance-certifications' ? 'text-[#00A8CC] font-bold' : ''
+                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'text-[#00A8CC] font-bold' : ''
                 }`}
                 onClick={() => setServicesDropdown(!servicesDropdown)}
                 aria-expanded={servicesDropdown}
@@ -126,35 +130,38 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
                 <span>Services</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${servicesDropdown ? 'rotate-180 text-[#00A8CC]' : 'text-slate-400 group-hover:text-[#00A8CC]'}`} />
                 <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#00A8CC] rounded-full transition-transform duration-300 origin-left ${
-                  currentPage === 'compliance-certifications' ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                 }`} />
               </button>
 
               {servicesDropdown && (
                 <div className="absolute top-full left-0 w-64 bg-white/95 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-100 py-3 px-2 transition-all duration-200 animate-dropdown-zoom">
                   <div className="space-y-1">
-                    <button 
-                      onClick={() => handleNavClick('compliance-certifications')}
-                      className="w-full text-left group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-[#00A8CC] bg-cyan-50/70 hover:bg-cyan-100/70 transition-all duration-200"
-                    >
-                      <span>Compliance Certifications</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#00A8CC]" />
-                    </button>
-                    
                     {[
-                      { name: 'Advisory Consulting', anchor: '#services' },
-                      { name: 'Demand Generation', anchor: '#services' },
-                      { name: 'CRM Implementation', anchor: '#services' },
-                    ].map((item, i) => (
-                      <button 
-                        key={i}
-                        onClick={() => handleNavClick('home', item.anchor)}
-                        className="w-full text-left group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-indigo-50/30 hover:text-[#00A8CC] transition-all duration-200"
-                      >
-                        <span>{item.name}</span>
-                        <ArrowUpRight className="w-3.5 h-3.5 opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 text-[#00A8CC] transition-all duration-200" />
-                      </button>
-                    ))}
+                      { name: 'Compliance Certifications', page: 'compliance-certifications' },
+                      { name: 'Advisory Consulting', page: 'advisory-consulting' },
+                      { name: 'Demand Generation', page: 'demand-generation' },
+                      { name: 'CRM Implementation', page: 'crm-implementation' },
+                      { name: 'Enrollment Growth Engine Support', page: 'enrollment-growth-engine' },
+                    ].map((item, i) => {
+                      const isItemActive = currentPage === item.page
+                      return (
+                        <button 
+                          key={i}
+                          onClick={() => handleNavClick(item.page)}
+                          className={`w-full text-left group flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                            isItemActive
+                              ? 'text-[#00A8CC] bg-cyan-50/80 shadow-xs'
+                              : 'text-slate-700 hover:bg-gradient-to-r hover:from-cyan-50 hover:to-indigo-50/30 hover:text-[#00A8CC]'
+                          }`}
+                        >
+                          <span>{item.name}</span>
+                          <ArrowUpRight className={`w-3.5 h-3.5 transition-all duration-200 ${
+                            isItemActive ? 'text-[#00A8CC] opacity-100' : 'text-[#00A8CC] opacity-0 -translate-x-1 translate-y-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0'
+                          }`} />
+                        </button>
+                      )
+                    })}
                   </div>
                 </div>
               )}
@@ -268,8 +275,10 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
           </button>
           
           <button
-            onClick={() => handleNavClick('home', '#who-we-are')}
-            className="block w-full text-left text-base font-medium text-slate-700 hover:text-[#00A8CC]"
+            onClick={() => handleNavClick('about-us')}
+            className={`block w-full text-left text-base font-semibold transition-colors ${
+              currentPage === 'about-us' ? 'text-[#00A8CC]' : 'text-slate-700 hover:text-[#00A8CC]'
+            }`}
           >
             About Us
           </button>
@@ -279,18 +288,23 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400 block px-1">
               Services
             </span>
-            <button
-              onClick={() => handleNavClick('compliance-certifications')}
-              className="block w-full text-left text-sm font-bold text-[#00A8CC] pl-2 py-1 bg-cyan-50/50 rounded-lg"
-            >
-              👉 Compliance Certifications
-            </button>
-            <button
-              onClick={() => handleNavClick('home', '#services')}
-              className="block w-full text-left text-sm font-medium text-slate-600 pl-2 py-1"
-            >
-              All Process Staircase Services
-            </button>
+            {[
+              { name: 'Compliance Certifications', page: 'compliance-certifications' },
+              { name: 'Advisory Consulting', page: 'advisory-consulting' },
+              { name: 'Demand Generation', page: 'demand-generation' },
+              { name: 'CRM Implementation', page: 'crm-implementation' },
+              { name: 'Enrollment Growth Engine Support', page: 'enrollment-growth-engine' },
+            ].map((item, i) => (
+              <button
+                key={i}
+                onClick={() => handleNavClick(item.page)}
+                className={`block w-full text-left text-sm font-semibold pl-2 py-1.5 rounded-lg transition-colors ${
+                  currentPage === item.page ? 'text-[#00A8CC] bg-cyan-50' : 'text-slate-600 hover:text-[#00A8CC]'
+                }`}
+              >
+                👉 {item.name}
+              </button>
+            ))}
           </div>
 
           <button

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Quote, Globe, Boxes, ShieldCheck } from 'lucide-react'
 
 /**
  * TestimonialQuoteCard (Standalone Component)
@@ -7,23 +7,25 @@ import { ChevronLeft, ChevronRight, Quote } from 'lucide-react'
  * Strict implementation of the Testimonial Quote Card UI:
  * - Speech-bubble quote card (rounded-3xl, soft drop shadow, oversized teal quotation mark)
  * - Bottom-left classic speech-bubble notch/tail
- * - 40-50% bottom-right overlapping circular-cropped headshot photo (120-140px diameter, white ring)
- * - Dark pill name/role chip layered behind photo, peeking out from under it
- * - Layering: Card (z-10) -> Chip (z-20) -> Photo (z-30)
- * - Standalone reusable component with zero page background baked in
+ * - 40-50% bottom-right overlapping circular open-source brand emblem (120-140px diameter, white ring)
+ * - Dark pill name/role chip layered behind emblem, peeking out from under it
+ * - Layering: Card (z-10) -> Chip (z-20) -> Brand Emblem (z-30)
+ * - 100% open-source vector client logos (no person photos)
  */
 export function TestimonialQuoteCard({
   quote,
   name,
   role,
-  photoUrl,
+  gradient,
+  icon: Icon,
+  tag,
   className = ""
 }) {
   return (
-    <div className={`relative inline-block w-full max-w-[460px] sm:max-w-[540px] md:max-w-[580px] select-none text-left ${className}`}>
+    <div className={`relative inline-block w-full max-w-full sm:max-w-[640px] md:max-w-[720px] lg:max-w-[820px] select-none text-left ${className}`}>
       
       {/* 1. Speech-Bubble Quote Card (Layer: z-10, bottom layer) */}
-      <div className="relative z-10 bg-white rounded-3xl p-7 sm:p-9 shadow-[0_15px_45px_rgba(0,0,0,0.08)] border border-slate-100/90 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.12)]">
+      <div className="relative z-10 bg-white rounded-3xl p-6 sm:p-8 lg:p-9 shadow-[0_15px_45px_rgba(0,0,0,0.07)] border border-slate-100/90 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.11)]">
         
         {/* Large Decorative Opening Quotation Mark at Top-Left (~48-56px, brand teal #00A8CC) */}
         <span 
@@ -33,8 +35,8 @@ export function TestimonialQuoteCard({
           “
         </span>
 
-        {/* Body Text: Quote copy, dark gray/navy, regular weight, comfortable line-height */}
-        <p className="text-[#1E2A4A]/85 text-sm sm:text-base leading-relaxed font-normal pt-2 sm:pt-3 pb-6 sm:pb-8 pr-16 sm:pr-24">
+        {/* Body Text: Horizontal wide layout allows longer text to flow in fewer lines, keeping height compact */}
+        <p className="text-[#1E2A4A]/85 text-sm sm:text-base lg:text-[16.5px] leading-relaxed font-normal pt-2 pb-6 sm:pb-7 pr-16 sm:pr-24 lg:pr-32">
           {quote}
         </p>
 
@@ -45,8 +47,8 @@ export function TestimonialQuoteCard({
         />
       </div>
 
-      {/* 2. Name Label Chip (Layer: z-20, behind photo, peeking out from under/behind it) */}
-      <div className="absolute -bottom-3.5 sm:-bottom-5 right-14 sm:right-20 z-20 bg-[#0A2540] text-white py-1.5 sm:py-2 px-4 sm:px-5 pr-16 sm:pr-20 rounded-full shadow-lg border border-white/15 flex flex-col items-start pointer-events-none max-w-[220px] sm:max-w-[260px] transition-all">
+      {/* 2. Name Label Chip (Layer: z-20, behind logo badge, peeking out from under/behind it) */}
+      <div className="absolute -bottom-3.5 sm:-bottom-4.5 right-14 sm:right-20 lg:right-24 z-20 bg-[#0A2540] text-white py-1.5 sm:py-2 px-4 sm:px-5 pr-14 sm:pr-18 rounded-full shadow-lg border border-white/15 flex flex-col items-start pointer-events-none max-w-[220px] sm:max-w-[280px] transition-all">
         <span className="font-bold text-xs sm:text-sm text-white tracking-tight leading-tight truncate w-full text-left">
           {name}
         </span>
@@ -57,88 +59,56 @@ export function TestimonialQuoteCard({
         )}
       </div>
 
-      {/* 3. Circular-Cropped Headshot Photo (Layer: z-30, topmost, overlapping bottom-right corner 40-50%) */}
-      <div className="absolute -bottom-8 -right-3 sm:-bottom-11 sm:-right-5 z-30 group">
-        <img
-          src={photoUrl}
-          alt={name}
-          className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover ring-4 ring-white shadow-[0_14px_32px_rgba(0,0,0,0.22)] transition-transform duration-300 group-hover:scale-105"
-        />
+      {/* 3. Circular Open-Source Vector Brand Logo Badge (Layer: z-30, topmost, overlapping bottom-right corner 40-50%) */}
+      <div className="absolute -bottom-7 -right-2 sm:-bottom-9 sm:-right-4 lg:-bottom-10 lg:-right-5 z-30 group">
+        <div 
+          className={`w-20 h-20 sm:w-28 sm:h-28 lg:w-30 lg:h-30 rounded-full bg-gradient-to-tr ${gradient} ring-4 ring-white shadow-[0_14px_32px_rgba(0,0,0,0.22)] flex flex-col items-center justify-center text-white transition-transform duration-300 group-hover:scale-105 select-none relative overflow-hidden`}
+        >
+          {/* Subtle inner geometric backdrop grid */}
+          <div className="absolute inset-0 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:8px_8px] opacity-25 pointer-events-none" />
+          
+          {/* Open-Source Vector Brand Icon */}
+          <Icon className="w-7 h-7 sm:w-10 sm:h-10 text-white drop-shadow-md mb-0.5 relative z-10" />
+          
+          {/* Clean Monogram Tag */}
+          <span className="text-[9px] sm:text-[11px] font-black tracking-widest uppercase text-white/90 font-mono relative z-10">
+            {tag}
+          </span>
+        </div>
       </div>
 
     </div>
   )
 }
 
-// Curated pool of high-resolution avatar portraits
-const RANDOM_AVATARS = [
-  "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400&auto=format&fit=crop&q=80",
-  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&auto=format&fit=crop&q=80"
-]
-
-// Extended client testimonials with realistic quotes & designations
+// Authentic client testimonials with open-source vector brand emblems
 const TESTIMONIALS_DATA = [
   {
     id: 0,
-    name: "Charlie Vance",
+    name: "Charlie",
     role: "CEO, Community Funded",
-    photoUrl: RANDOM_AVATARS[0],
-    quote: "The Mavericks has been a wonderful consultant to our team. They helped us get certified and also did a SOC 2 report for us very quickly and professionally. They know what they do and I recommend them wholeheartedly."
+    quote: "The Mavericks has been a wonderful consultant to our team. They helped us get certified and also did a SOC 2 report for us very quickly and professionally. They know what they do and I would recommend them to anyone looking for a seamless support in Compliance Certification at the most competitive cost.",
+    gradient: "from-[#00A8CC] via-[#0284C7] to-[#0F766E]",
+    icon: Globe,
+    tag: "CF"
   },
   {
     id: 1,
-    name: "Sarah Jenkins",
-    role: "VP Operations, TechVentures",
-    photoUrl: RANDOM_AVATARS[1],
-    quote: "Working with Mavericks Consulting completely revitalized our go-to-market pipeline. Their advisory team identified key operational bottlenecks in weeks, delivering 3x improvement across pipeline velocity."
+    name: "Ryan",
+    role: "Founder, Modular 11 LLC",
+    quote: "When we thought about cyber security, we realized the need of a third-party SOC2 support. After a thorough research, we came across The Mavericks Consulting and are really glad that we did. We found their team to be cooperative, responsive and gave us detailed guidance on SOC2 compliance within our company in less than 24 hours. The team is not just professional but also very knowledgeable about cyber security in general.",
+    gradient: "from-[#1E2A4A] via-[#3B82F6] to-[#6366F1]",
+    icon: Boxes,
+    tag: "M11"
   },
   {
     id: 2,
-    name: "David Chen",
-    role: "CTO, GlobalReach Cloud",
-    photoUrl: RANDOM_AVATARS[2],
-    quote: "Their CRM implementation and continuous compliance framework enabled our engineering and sales teams to operate with 100% confidence across international borders. Seamless execution from start to finish."
-  },
-  {
-    id: 3,
-    name: "Elena Rostova",
-    role: "Head of Compliance, FinScale",
-    photoUrl: RANDOM_AVATARS[3],
-    quote: "The speed, accuracy, and depth of technical understanding Mavericks brought to our audit readiness was extraordinary. We passed our ISO 27001 evaluation ahead of schedule with zero non-conformances."
-  },
-  {
-    id: 4,
-    name: "Marcus Sterling",
-    role: "Managing Partner, Apex Capital",
-    photoUrl: RANDOM_AVATARS[4],
-    quote: "Mavericks transformed our risk assessment model into a high-speed decision engine. Their strategic clarity and hands-on execution saved our portfolio companies months of trial and error."
-  },
-  {
-    id: 5,
-    name: "Amara Okonjo",
-    role: "Director of Product, MedTech AI",
-    photoUrl: RANDOM_AVATARS[5],
-    quote: "Navigating HIPAA and FDA cybersecurity compliance felt daunting until Mavericks stepped in. Their dedicated roadmap and weekly sprint reviews made every milestone completely frictionless."
-  },
-  {
-    id: 6,
-    name: "Alexandre Dubois",
-    role: "CISO, NexaPay Global",
-    photoUrl: RANDOM_AVATARS[6],
-    quote: "From penetration testing to enterprise policy drafting, the Mavericks team exceeded our highest expectations. They are our trusted long-term cybersecurity partners."
-  },
-  {
-    id: 7,
-    name: "Priya Sharma",
-    role: "CRO, CloudSphere",
-    photoUrl: RANDOM_AVATARS[7],
-    quote: "The ROI we achieved working with Mavericks was evident in Q1. Our enterprise deals close 40% faster with their certified security trust packets and verified frameworks."
+    name: "Sanyam",
+    role: "Managing Consultant, Compliance & Certification",
+    quote: "We are so happy to have partnered with The Mavericks Consulting. As a local business, we get to work with them on a day-to-day basis and they are always cheerful, always willing to help, and their knowledge on cyber security is unmatched. We've been working together for over 2 years now and the collaboration has been nothing but supportive. We are so lucky to have found this team!",
+    gradient: "from-[#0A2540] via-[#00A8CC] to-[#14B8A6]",
+    icon: ShieldCheck,
+    tag: "MC"
   }
 ]
 
@@ -158,7 +128,7 @@ export default function Testimonials() {
   const current = testimonials[currentIndex]
 
   return (
-    <section id="testimonials" className="py-24 sm:py-32 bg-[#F8FAFC] relative overflow-hidden">
+    <section id="testimonials" className="py-16 sm:py-20 lg:py-24 bg-[#F8FAFC] relative overflow-hidden">
       {/* Background Subtle Accent Gradients */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
       <div className="absolute -top-40 right-10 w-96 h-96 bg-cyan-100/40 rounded-full blur-3xl pointer-events-none" />
@@ -167,27 +137,27 @@ export default function Testimonials() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A8CC]/10 text-[#00A8CC] text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-4">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A8CC]/10 text-[#00A8CC] text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-3.5">
             <Quote className="w-3.5 h-3.5" />
             TESTIMONIALS
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-[46px] font-extrabold text-[#1E2A4A] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#1E2A4A] tracking-tight leading-tight">
             Here's what our clients & partners say
           </h2>
-          <p className="text-sm sm:text-base text-slate-500 mt-4 leading-relaxed font-normal max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-slate-500 mt-3 leading-relaxed font-normal max-w-2xl mx-auto">
             Over the years we have built strong rapport with high-growth enterprises and founders across 7+ countries.
             Click any client below to read their review.
           </p>
         </div>
 
-        {/* --- TOP: ACTIVE TESTIMONIAL CARD DISPLAY --- */}
-        <div className="relative max-w-3xl mx-auto px-4 sm:px-10 pt-2 pb-20 sm:pb-24">
+        {/* --- TOP: ACTIVE TESTIMONIAL CARD DISPLAY (Wider container keeps vertical height compact) --- */}
+        <div className="relative max-w-4xl mx-auto px-2 sm:px-12 pt-2 pb-14 sm:pb-16">
           
           {/* Left Arrow Button */}
           <button
             onClick={handlePrev}
-            className="hidden sm:flex absolute left-0 sm:-left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#00A8CC] hover:border-[#00A8CC] hover:shadow-lg items-center justify-center transition-all duration-200 z-40 focus:outline-none shadow-sm"
+            className="hidden sm:flex absolute -left-2 lg:-left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#00A8CC] hover:border-[#00A8CC] hover:shadow-lg items-center justify-center transition-all duration-200 z-40 focus:outline-none shadow-sm"
             aria-label="Previous Testimonial"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -196,7 +166,7 @@ export default function Testimonials() {
           {/* Right Arrow Button */}
           <button
             onClick={handleNext}
-            className="hidden sm:flex absolute right-0 sm:-right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#00A8CC] hover:border-[#00A8CC] hover:shadow-lg items-center justify-center transition-all duration-200 z-40 focus:outline-none shadow-sm"
+            className="hidden sm:flex absolute -right-2 lg:-right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border border-slate-200 text-slate-600 hover:text-[#00A8CC] hover:border-[#00A8CC] hover:shadow-lg items-center justify-center transition-all duration-200 z-40 focus:outline-none shadow-sm"
             aria-label="Next Testimonial"
           >
             <ChevronRight className="w-5 h-5" />
@@ -209,12 +179,14 @@ export default function Testimonials() {
               quote={current.quote}
               name={current.name}
               role={current.role}
-              photoUrl={current.photoUrl}
+              gradient={current.gradient}
+              icon={current.icon}
+              tag={current.tag}
             />
           </div>
 
           {/* Mobile Arrow Controls */}
-          <div className="flex sm:hidden items-center justify-center gap-4 mt-16">
+          <div className="flex sm:hidden items-center justify-center gap-4 mt-12">
             <button
               onClick={handlePrev}
               className="p-2.5 rounded-full bg-white border border-slate-200 text-slate-700 shadow-sm"
@@ -236,21 +208,22 @@ export default function Testimonials() {
 
         </div>
 
-        {/* --- BOTTOM: SUGGESTION / SELECTOR STRIP (Image + Name Only) --- */}
-        <div className="mt-6 pt-8 border-t border-slate-200/80">
-          <div className="text-center mb-6">
+        {/* --- BOTTOM: SUGGESTION / SELECTOR STRIP (Logo + Name Only) --- */}
+        <div className="mt-4 pt-6 border-t border-slate-200/80">
+          <div className="text-center mb-5">
             <p className="text-xs font-bold uppercase tracking-wider text-slate-400">
               Select a Client to View Testimonial
             </p>
           </div>
 
-          {/* Suggestions List / Grid (Clicking any person changes testimonial at top) */}
+          {/* Suggestions List (Clicking any brand changes testimonial at top) */}
           <div 
             ref={thumbnailContainerRef}
             className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 max-w-5xl mx-auto"
           >
             {testimonials.map((item, idx) => {
               const isActive = currentIndex === idx
+              const ItemIcon = item.icon
 
               return (
                 <button
@@ -263,17 +236,13 @@ export default function Testimonials() {
                   }`}
                   aria-label={`View testimonial from ${item.name}`}
                 >
-                  {/* Thumbnail Avatar Image */}
-                  <div className="relative flex-shrink-0">
-                    <img
-                      src={item.photoUrl}
-                      alt={item.name}
-                      className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover transition-transform duration-200 ${
-                        isActive 
-                          ? 'ring-2 ring-[#00A8CC]' 
-                          : 'ring-1 ring-slate-200 group-hover:ring-[#00A8CC]/50'
-                      }`}
-                    />
+                  {/* Thumbnail Open-Source Brand Logo Badge */}
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr ${item.gradient} flex items-center justify-center text-white shrink-0 shadow-sm relative ${
+                    isActive 
+                      ? 'ring-2 ring-[#00A8CC]' 
+                      : 'ring-1 ring-slate-200 group-hover:ring-[#00A8CC]/50'
+                  }`}>
+                    <ItemIcon className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                     {isActive && (
                       <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-[#00A8CC] rounded-full border-2 border-white flex items-center justify-center">
                         <span className="w-1.5 h-1.5 bg-white rounded-full" />
@@ -281,14 +250,14 @@ export default function Testimonials() {
                     )}
                   </div>
 
-                  {/* Name (and subtle company name) */}
+                  {/* Name (and company designation) */}
                   <div className="flex flex-col pr-1">
                     <span className={`text-xs sm:text-sm font-bold tracking-tight leading-tight ${
                       isActive ? 'text-[#1E2A4A]' : 'text-slate-700 group-hover:text-[#1E2A4A]'
                     }`}>
                       {item.name}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-medium leading-tight truncate max-w-[110px]">
+                    <span className="text-[10px] text-slate-400 font-medium leading-tight truncate max-w-[130px]">
                       {item.role.split(',')[0]}
                     </span>
                   </div>
@@ -303,3 +272,4 @@ export default function Testimonials() {
     </section>
   )
 }
+

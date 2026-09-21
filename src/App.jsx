@@ -9,6 +9,11 @@ import ConsultationForm from './components/ConsultationForm'
 import CtaBanner from './components/CtaBanner'
 import Footer from './components/Footer'
 import ComplianceCertifications from './components/ComplianceCertifications'
+import AdvisoryConsulting from './components/AdvisoryConsulting'
+import DemandGeneration from './components/DemandGeneration'
+import CrmImplementation from './components/CrmImplementation'
+import EnrollmentGrowthEngine from './components/EnrollmentGrowthEngine'
+import AboutUs from './components/AboutUs'
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home')
@@ -16,11 +21,27 @@ export default function App() {
   // Hash-based route listener
   useEffect(() => {
     const handleHash = () => {
-      const hash = window.location.hash
-      if (hash === '#/compliance-certifications' || hash === '#compliance-certifications') {
+      const hash = window.location.hash.replace(/^#\/?/, '')
+      
+      if (hash === 'about-us' || hash === 'about') {
+        setCurrentPage('about-us')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (hash === 'compliance-certifications') {
         setCurrentPage('compliance-certifications')
         window.scrollTo({ top: 0, behavior: 'smooth' })
-      } else if (hash === '#/' || hash === '' || hash === '#home') {
+      } else if (hash === 'advisory-consulting') {
+        setCurrentPage('advisory-consulting')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (hash === 'demand-generation') {
+        setCurrentPage('demand-generation')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (hash === 'crm-implementation') {
+        setCurrentPage('crm-implementation')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (hash === 'enrollment-growth-engine') {
+        setCurrentPage('enrollment-growth-engine')
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (hash === '' || hash === 'home') {
         setCurrentPage('home')
       }
     }
@@ -32,10 +53,10 @@ export default function App() {
 
   const navigateTo = (page) => {
     setCurrentPage(page)
-    if (page === 'compliance-certifications') {
-      window.location.hash = '/compliance-certifications'
-    } else {
+    if (page === 'home') {
       window.location.hash = ''
+    } else {
+      window.location.hash = `/${page}`
     }
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -50,8 +71,28 @@ export default function App() {
 
       {/* Main Page Routing */}
       <main className="flex-grow">
-        {currentPage === 'compliance-certifications' ? (
+        {currentPage === 'about-us' ? (
+          <AboutUs 
+            onBackToHome={() => navigateTo('home')}
+          />
+        ) : currentPage === 'compliance-certifications' ? (
           <ComplianceCertifications 
+            onBackToHome={() => navigateTo('home')}
+          />
+        ) : currentPage === 'advisory-consulting' ? (
+          <AdvisoryConsulting 
+            onBackToHome={() => navigateTo('home')}
+          />
+        ) : currentPage === 'demand-generation' ? (
+          <DemandGeneration 
+            onBackToHome={() => navigateTo('home')}
+          />
+        ) : currentPage === 'crm-implementation' ? (
+          <CrmImplementation 
+            onBackToHome={() => navigateTo('home')}
+          />
+        ) : currentPage === 'enrollment-growth-engine' ? (
+          <EnrollmentGrowthEngine 
             onBackToHome={() => navigateTo('home')}
           />
         ) : (
@@ -59,8 +100,8 @@ export default function App() {
             <Hero />
             <WhoWeAre />
             <WhyUs />
-            <Services onNavigate={navigateTo} />
             <Testimonials />
+            <Services onNavigate={navigateTo} />
             <ConsultationForm />
             <CtaBanner />
           </>

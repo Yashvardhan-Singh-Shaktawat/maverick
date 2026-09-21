@@ -35,9 +35,11 @@ export default function ConsultationForm() {
             <span className="text-xs sm:text-[13px] font-bold tracking-widest text-[#00A8CC] uppercase block">
               NEED HELP?
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#1E2A4A] tracking-tight leading-[1.15]">
-              Let's start with a FREE <br />
-              Consultation
+            <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-extrabold text-[#1E2A4A] tracking-tight leading-snug">
+              Let's start with a <br />
+              <span className="text-4xl sm:text-5xl lg:text-[54px] font-black text-[#00A8CC] tracking-tight block mt-1.5">
+                FREE Consultation
+              </span>
             </h2>
             <p className="text-sm sm:text-base text-slate-500 leading-relaxed max-w-md pt-2">
               Fill this form and someone from our team will get back to you to discuss your requirements.

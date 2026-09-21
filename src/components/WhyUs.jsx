@@ -93,6 +93,19 @@ export default function WhyUs() {
           ))}
         </div>
 
+        {/* Schedule a Free Consultation Today! CTA Banner */}
+        <div className="mt-14 sm:mt-16 bg-[#E5F7FB] rounded-2xl sm:rounded-3xl px-6 py-6 sm:px-10 sm:py-7 flex flex-col sm:flex-row items-center justify-between gap-5 border border-cyan-100/60 shadow-sm transition-all duration-300 hover:shadow-md">
+          <h3 className="text-xl sm:text-2xl md:text-[26px] font-extrabold text-[#0A2540] tracking-tight text-center sm:text-left">
+            Schedule a Free Consultation Today!
+          </h3>
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center px-7 sm:px-9 py-3 sm:py-3.5 rounded-full bg-[#0A2540] hover:bg-[#06182a] text-white text-sm sm:text-base font-semibold tracking-tight shadow-md hover:shadow-lg hover:scale-105 active:scale-95 transition-all duration-200 shrink-0 focus:outline-none focus:ring-2 focus:ring-[#00A8CC] focus:ring-offset-2"
+          >
+            Get Started
+          </a>
+        </div>
+
       </div>
     </section>
   )
