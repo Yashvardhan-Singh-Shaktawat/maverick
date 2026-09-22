@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { ChevronLeft, ChevronRight, Quote, Globe, Boxes, ShieldCheck } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ArrowRight, Globe, Boxes, ShieldCheck } from 'lucide-react'
 
 /**
  * TestimonialQuoteCard (Standalone Component)
@@ -138,8 +138,7 @@ export default function Testimonials() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00A8CC]/10 text-[#00A8CC] text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-3.5">
-            <Quote className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-[#00A8CC]/10 text-[#00A8CC] text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-3.5">
             TESTIMONIALS
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#1E2A4A] tracking-tight leading-tight">
@@ -151,7 +150,7 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* --- TOP: ACTIVE TESTIMONIAL CARD DISPLAY (Wider container keeps vertical height compact) --- */}
+        {/* --- TOP: ACTIVE TESTIMONIAL CARD DISPLAY --- */}
         <div className="relative max-w-4xl mx-auto px-2 sm:px-12 pt-2 pb-14 sm:pb-16">
           
           {/* Left Arrow Button */}
@@ -268,8 +267,48 @@ export default function Testimonials() {
 
         </div>
 
+        {/* --- BOTTOM: WIDE CLEAN WHITE CTA BANNER --- */}
+        <div className="mt-14 pt-8 border-t border-slate-200/70">
+          <div className="w-full bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:px-10 lg:py-8 shadow-[0_10px_35px_rgba(0,0,0,0.04)] border border-slate-200/90 flex flex-col md:flex-row items-center justify-between gap-6 transition-all duration-200 hover:shadow-[0_15px_45px_rgba(0,0,0,0.06)]">
+            
+            {/* Left Content */}
+            <div className="text-center md:text-left space-y-1.5 max-w-2xl">
+              <span className="text-xs font-bold text-[#00A8CC] tracking-widest uppercase block">
+                READY TO BUILD YOUR SUCCESS STORY?
+              </span>
+              <h3 className="text-xl sm:text-2xl lg:text-[26px] font-extrabold text-[#1E2A4A] tracking-tight leading-snug">
+                Let's achieve measurable growth together
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                Join high-growth institutions and enterprises that trust The Mavericks for strategic execution.
+              </p>
+            </div>
+
+            {/* Right Action Button */}
+            <div className="shrink-0 w-full sm:w-auto flex justify-center">
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  const el = document.querySelector('#contact')
+                  if (el) {
+                    e.preventDefault()
+                    el.scrollIntoView({ behavior: 'smooth' })
+                  }
+                }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-sm sm:text-base font-bold text-white bg-[#0A2540] hover:bg-[#00A8CC] shadow-md hover:shadow-lg transition-all duration-200 group"
+              >
+                <span>Schedule a Free Consultation</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
+
+          </div>
+        </div>
+
       </div>
     </section>
   )
 }
+
+
 
