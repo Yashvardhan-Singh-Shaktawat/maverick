@@ -222,10 +222,9 @@ export default function ComplianceCertifications({ onBackToHome }) {
       <div className="bg-[#00A8CC] text-white py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 text-white border border-white/20 text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-4 shadow-sm">
-            <Sparkles className="w-3.5 h-3.5" />
+          <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/15 text-white border border-white/20 text-xs sm:text-[13px] font-extrabold tracking-widest uppercase mb-4 shadow-sm">
             NEED IMMEDIATE AUDIT READINESS?
-          </div>
+          </span>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
             Accelerate Your Compliance Certification Today

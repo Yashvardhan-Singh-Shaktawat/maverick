@@ -20,7 +20,7 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
     setServicesDropdown(false)
     setResourcesDropdown(false)
 
-    if (['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine', 'about-us'].includes(page)) {
+    if (['compliance-certifications', 'advisory-consulting', 'demand-generation', 'staff-augmentation', 'crm-implementation', 'enrollment-growth-engine', 'about-us'].includes(page)) {
       onNavigate(page)
     } else {
       onNavigate('home')
@@ -122,7 +122,7 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
             >
               <button 
                 className={`relative flex items-center gap-1 hover:text-[#00A8CC] transition-colors duration-200 py-2 focus:outline-none group ${
-                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'text-[#00A8CC] font-bold' : ''
+                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'staff-augmentation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'text-[#00A8CC] font-bold' : ''
                 }`}
                 onClick={() => setServicesDropdown(!servicesDropdown)}
                 aria-expanded={servicesDropdown}
@@ -130,7 +130,7 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
                 <span>Services</span>
                 <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${servicesDropdown ? 'rotate-180 text-[#00A8CC]' : 'text-slate-400 group-hover:text-[#00A8CC]'}`} />
                 <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-[#00A8CC] rounded-full transition-transform duration-300 origin-left ${
-                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                  ['compliance-certifications', 'advisory-consulting', 'demand-generation', 'staff-augmentation', 'crm-implementation', 'enrollment-growth-engine'].includes(currentPage) ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                 }`} />
               </button>
 
@@ -141,8 +141,8 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
                       { name: 'Compliance Certifications', page: 'compliance-certifications' },
                       { name: 'Advisory Consulting', page: 'advisory-consulting' },
                       { name: 'Demand Generation', page: 'demand-generation' },
-                      { name: 'CRM Implementation', page: 'crm-implementation' },
-                      { name: 'Enrollment Growth Engine Support', page: 'enrollment-growth-engine' },
+                      { name: 'Staff Augmentation', page: 'staff-augmentation' },
+                      { name: 'Online Enrollment Engine Support', page: 'enrollment-growth-engine' },
                     ].map((item, i) => {
                       const isItemActive = currentPage === item.page
                       return (
@@ -292,8 +292,8 @@ export default function Navbar({ currentPage = 'home', onNavigate = () => {} }) 
               { name: 'Compliance Certifications', page: 'compliance-certifications' },
               { name: 'Advisory Consulting', page: 'advisory-consulting' },
               { name: 'Demand Generation', page: 'demand-generation' },
-              { name: 'CRM Implementation', page: 'crm-implementation' },
-              { name: 'Enrollment Growth Engine Support', page: 'enrollment-growth-engine' },
+              { name: 'Staff Augmentation', page: 'staff-augmentation' },
+              { name: 'Online Enrollment Engine Support', page: 'enrollment-growth-engine' },
             ].map((item, i) => (
               <button
                 key={i}

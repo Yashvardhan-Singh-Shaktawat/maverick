@@ -11,7 +11,7 @@ import Footer from './components/Footer'
 import ComplianceCertifications from './components/ComplianceCertifications'
 import AdvisoryConsulting from './components/AdvisoryConsulting'
 import DemandGeneration from './components/DemandGeneration'
-import CrmImplementation from './components/CrmImplementation'
+import StaffAugmentation from './components/StaffAugmentation'
 import EnrollmentGrowthEngine from './components/EnrollmentGrowthEngine'
 import AboutUs from './components/AboutUs'
 
@@ -35,8 +35,8 @@ export default function App() {
       } else if (hash === 'demand-generation') {
         setCurrentPage('demand-generation')
         window.scrollTo({ top: 0, behavior: 'smooth' })
-      } else if (hash === 'crm-implementation') {
-        setCurrentPage('crm-implementation')
+      } else if (hash === 'staff-augmentation' || hash === 'crm-implementation') {
+        setCurrentPage('staff-augmentation')
         window.scrollTo({ top: 0, behavior: 'smooth' })
       } else if (hash === 'enrollment-growth-engine') {
         setCurrentPage('enrollment-growth-engine')
@@ -87,8 +87,8 @@ export default function App() {
           <DemandGeneration 
             onBackToHome={() => navigateTo('home')}
           />
-        ) : currentPage === 'crm-implementation' ? (
-          <CrmImplementation 
+        ) : (currentPage === 'staff-augmentation' || currentPage === 'crm-implementation') ? (
+          <StaffAugmentation 
             onBackToHome={() => navigateTo('home')}
           />
         ) : currentPage === 'enrollment-growth-engine' ? (

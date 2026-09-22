@@ -19,17 +19,17 @@ export default function PinnedProcessCards({
   description = 'A systematic, data-backed approach to transforming university market presence into sustainable enrollment growth.',
   items = []
 }) {
-  // Predefined scattered offsets and rotation pattern per index
+  // Predefined scattered offsets without rotation tilt
   const layoutConfigs = [
-    { top: '4%', left: '55%', rotate: '3deg', zIndex: 40, pinX: 710, pinY: 50 },
-    { top: '27%', left: '10%', rotate: '-3deg', zIndex: 30, pinX: 260, pinY: 230 },
-    { top: '50%', left: '48%', rotate: '2deg', zIndex: 20, pinX: 640, pinY: 410 },
-    { top: '73%', left: '8%', rotate: '-4deg', zIndex: 10, pinX: 240, pinY: 590 },
+    { top: '3%', left: '55%', zIndex: 40, pinX: 710, pinY: 45 },
+    { top: '26%', left: '10%', zIndex: 30, pinX: 260, pinY: 215 },
+    { top: '49%', left: '48%', zIndex: 20, pinX: 640, pinY: 385 },
+    { top: '72%', left: '8%', zIndex: 10, pinX: 240, pinY: 555 },
   ]
 
   return (
     <section 
-      className="w-full py-24 sm:py-32 relative overflow-hidden bg-[#FAFAFA] border-t border-b border-slate-200/80"
+      className="w-full py-12 sm:py-16 lg:py-20 relative overflow-hidden bg-[#FAFAFA] border-t border-b border-slate-200/80"
       style={{
         backgroundImage: 'radial-gradient(#d1d5db 1.2px, transparent 1.2px)',
         backgroundSize: '22px 22px'
@@ -38,19 +38,19 @@ export default function PinnedProcessCards({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
           {subheading && (
-            <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200/90 text-xs font-bold tracking-widest text-[#00A8CC] uppercase shadow-xs mb-4">
+            <span className="inline-flex items-center px-3.5 py-1 rounded-full bg-white/90 backdrop-blur-sm border border-slate-200/90 text-xs font-bold tracking-widest text-[#00A8CC] uppercase shadow-xs mb-3">
               {subheading}
             </span>
           )}
           
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#1E2A4A] tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-[44px] font-extrabold text-[#1E2A4A] tracking-tight leading-tight">
             {heading}
           </h2>
 
           {description && (
-            <p className="text-slate-500 text-sm sm:text-base mt-3 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-slate-500 text-sm sm:text-base mt-2 max-w-2xl mx-auto leading-relaxed">
               {description}
             </p>
           )}
@@ -59,7 +59,7 @@ export default function PinnedProcessCards({
         {/* ================================================================ */}
         {/* DESKTOP: STAGGERED DESCENDING ZIGZAG PINNED CARDS (md and up)     */}
         {/* ================================================================ */}
-        <div className="hidden md:block relative w-full h-[820px] max-w-5xl mx-auto">
+        <div className="hidden md:block relative w-full h-[760px] max-w-5xl mx-auto">
           
           {/* Dynamic Dashed Curved Bezier SVG Connector Lines */}
           <svg 
@@ -110,12 +110,11 @@ export default function PinnedProcessCards({
                   top: config.top,
                   left: config.left,
                   zIndex: config.zIndex,
-                  transform: `rotate(${config.rotate})`,
                 }}
-                className="absolute w-[310px] transition-all duration-300 ease-out hover:!z-50 hover:!rotate-0 hover:-translate-y-2 group cursor-default"
+                className="absolute w-[320px] transition-all duration-300 ease-out hover:!z-50 hover:scale-110 hover:-translate-y-2 group cursor-pointer"
               >
                 {/* Pinned Card Container */}
-                <div className="relative bg-white rounded-2xl p-6 sm:p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.07)] group-hover:shadow-[0_20px_45px_rgba(0,168,204,0.18)] group-hover:border-[#00A8CC]/50 transition-all duration-300">
+                <div className="relative bg-white rounded-2xl p-6 sm:p-7 border border-black/[0.06] shadow-[0_10px_30px_rgba(0,0,0,0.07)] group-hover:shadow-[0_25px_50px_rgba(0,168,204,0.22)] group-hover:border-[#00A8CC]/60 transition-all duration-300">
                   
                   {/* Solid Top Pin with Glossy Inner Highlight */}
                   <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#2A2A2A] shadow-md flex items-center justify-center z-30 pointer-events-none transition-transform duration-300 group-hover:scale-125">
@@ -156,9 +155,9 @@ export default function PinnedProcessCards({
           {items.map((item, idx) => (
             <div 
               key={idx}
-              className="relative z-10 group"
+              className="relative z-10 group cursor-pointer transition-transform duration-300 hover:scale-105"
             >
-              <div className="bg-white rounded-2xl p-6 border border-black/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:border-[#00A8CC]/50 transition-all duration-300">
+              <div className="bg-white rounded-2xl p-6 border border-black/[0.06] shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:shadow-[0_16px_36px_rgba(0,168,204,0.18)] hover:border-[#00A8CC]/50 transition-all duration-300">
                 
                 {/* Pin Element */}
                 <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#2A2A2A] shadow-md flex items-center justify-center z-30">

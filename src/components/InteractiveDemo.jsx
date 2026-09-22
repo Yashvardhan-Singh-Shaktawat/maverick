@@ -89,11 +89,10 @@ export function CounterWidget() {
                     <button
                       key={theme.id}
                       onClick={() => setAccentColor(theme.id)}
-                      className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all ${
-                        accentColor === theme.id
+                      className={`flex items-center gap-2 px-3 py-2 rounded-xl border text-xs font-medium transition-all ${accentColor === theme.id
                           ? 'border-white/50 bg-slate-800 text-white shadow-md'
                           : 'border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-slate-200'
-                      }`}
+                        }`}
                     >
                       <span className={`w-3.5 h-3.5 rounded-full ${theme.bg}`} />
                       <span>{theme.name}</span>
@@ -197,7 +196,7 @@ export function CounterWidget() {
               </div>
 
               <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-                <span>⚡ Instant hot reload ready</span>
+                <span> Instant hot reload ready</span>
                 <span className="font-mono text-indigo-400">Tailwind CSS 3.4</span>
               </div>
             </div>

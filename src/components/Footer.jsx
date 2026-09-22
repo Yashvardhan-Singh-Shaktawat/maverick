@@ -120,7 +120,7 @@ export default function Footer({ onNavigate = () => {} }) {
                   onClick={(e) => handleLink(e, 'enrollment-growth-engine')} 
                   className="hover:text-white hover:underline transition-all text-left"
                 >
-                  Enrollment Growth
+                  Online Enrollment Engine
                 </button>
               </li>
               <li>
